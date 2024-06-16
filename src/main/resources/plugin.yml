@@ -1,0 +1,20 @@
+name: PlayerServerCore
+version: '${project.version}'
+main: eu.xap3y.playerservercore.PlayerServerCore
+api-version: '1.20'
+authors: [XAP3Y]
+website: https://minecore.cz
+
+commands:
+    psc:
+        usage: /psc
+        aliases:
+            - playerserverscore
+            - pscore
+        description: PlayerServers Core default command
+    menu:
+        usage: /menu
+        description: PlayerServers Core menu command
+    config:
+        usage: /config
+        description: PlayerServers Core config command

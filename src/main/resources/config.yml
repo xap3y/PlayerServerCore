@@ -1,0 +1,14 @@
+Owner: "OwnerCZ"
+ServerUUID: none
+MaxPlugins: 20
+MaxPlayers: 20
+LastJoin: 30
+EnablePanel: false
+Password: password
+PanelPort: panelport
+Panel: ""
+
+PluginsEnabled: []
+Access: []
+
+DisabledAccess: []
