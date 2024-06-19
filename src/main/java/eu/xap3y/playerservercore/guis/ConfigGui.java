@@ -5,7 +5,6 @@ import com.cryptomorin.xseries.XSound;
 import com.samjakob.spigui.item.ItemBuilder;
 import com.samjakob.spigui.menu.SGMenu;
 import com.samjakob.spigui.buttons.SGButton;
-import com.samjakob.spigui.buttons.SGButtonListener;
 import eu.xap3y.playerservercore.PlayerServerCore;
 import eu.xap3y.playerservercore.listeners.FileClickListener;
 import org.bukkit.entity.Player;
@@ -21,7 +20,7 @@ import java.util.Locale;
 public class ConfigGui extends Gui {
    public static void openGui(Player player, File directory) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Configuration menu", 5);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Konfigurační menu", 5);
       menu.setAutomaticPaginationEnabled(true);
       File parentDirectory = directory.getParentFile();
       File[] files = directory.listFiles();
@@ -38,9 +37,9 @@ public class ConfigGui extends Gui {
          .map(
             file -> {
                List<String> lore = new ArrayList<>();
-               lore.add("&7Path: &f" + file.getPath());
+               lore.add("&7Cesta: &f" + file.getPath());
                if (file.isFile()) {
-                  lore.add("&7Size: &f" + file.length() / 1024L / 1024L + " MB");
+                  lore.add("&7Velikost: &f" + file.length() / 1024L / 1024L + " MB");
                   lore.add("&7Last modified: &f" + df.format(file.lastModified()));
                   lore.add("");
                   lore.add("&7left click to &bedit&7 this file.");
@@ -56,7 +55,7 @@ public class ConfigGui extends Gui {
       menu.addButtons(buttons);
       if (parentDirectory != null) {
          menu.addButton(
-            new SGButton(new ItemBuilder(XMaterial.ARROW.parseItem()).name("&cGo back").build()).withListener(e -> openGui(player, directory.getParentFile()))
+            new SGButton(new ItemBuilder(XMaterial.ARROW.parseItem()).name("&cZpět").build()).withListener(e -> openGui(player, directory.getParentFile()))
          );
       }
 

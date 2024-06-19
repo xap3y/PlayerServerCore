@@ -27,7 +27,6 @@ public final class PlayerServerCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ServerLoadEvent(configuration), this);
         Bukkit.getPluginManager().registerEvents(new JoinEvent(configuration), this);
         Bukkit.getPluginManager().registerEvents(new ChatEvent(configuration), this);
-        Bukkit.getPluginManager().registerEvents(new MotdHandler(), this);
         Bukkit.getPluginManager().registerEvents(new MoveHandler(), this);
         Bukkit.getPluginManager().registerEvents(shutdownTimer, this);
         this.getCommand("psc").setExecutor(new CommandManager(this));

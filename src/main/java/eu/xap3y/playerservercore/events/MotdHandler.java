@@ -1,24 +1,18 @@
 package eu.xap3y.playerservercore.events;
 
-import eu.xap3y.playerservercore.utils.ChatUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.server.ServerListPingEvent;
+import net.kyori.adventure.text.Component;
 
-public class MotdHandler implements Listener {
-   private static String motd = Bukkit.getMotd();
+import static org.bukkit.Bukkit.motd;
 
-   @EventHandler
+public class MotdHandler {
+
+   /*@EventHandler
    public void onServerListPing(ServerListPingEvent event) {
       event.setMotd(ChatUtil.translate(motd));
-   }
+   }*/
 
-   public static void setMotd(String motd) {
-      MotdHandler.motd = motd;
-   }
-
-   public static String getMotd() {
-      return motd;
+   public static void setMotd(String motdToSet) {
+      /*MotdHandler.motd = motd;*/
+      motd(Component.text(motdToSet.replace("&", "§")));
    }
 }

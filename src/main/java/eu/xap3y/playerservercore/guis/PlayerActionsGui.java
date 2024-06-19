@@ -8,11 +8,10 @@ import com.samjakob.spigui.item.ItemBuilder;
 import eu.xap3y.playerservercore.PlayerServerCore;
 import eu.xap3y.playerservercore.events.MoveHandler;
 import eu.xap3y.playerservercore.listeners.BanListener;
-import eu.xap3y.playerservercore.listeners.ItemUtils;
+import eu.xap3y.playerservercore.utils.ItemUtils;
 import eu.xap3y.playerservercore.listeners.KickListener;
 import eu.xap3y.playerservercore.utils.ChatUtil;
 import eu.xap3y.playerservercore.utils.PlayerPingUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -22,8 +21,7 @@ public class PlayerActionsGui extends Gui {
    public static void openGui(Player player, Player target) {
       try {
          XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-         int rows = 5;
-         SGMenu menu = PlayerServerCore.getSpiGUI().create("Manage: " + player.getName(), 5);
+         SGMenu menu = PlayerServerCore.getSpiGUI().create("Akce pro hráče: " + player.getName(), 5);
          menu.setAutomaticPaginationEnabled(false);
          ItemUtils.addBorder(menu, 5);
          int targetPing = PlayerPingUtils.getPlayerPing(player);
@@ -33,16 +31,16 @@ public class PlayerActionsGui extends Gui {
                   new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                      .name("&a&l" + target.getName())
                      .lore(
-                        "&7UUID: &f" + target.getUniqueId(),
-                        "&7IP: &f" + Objects.requireNonNull(target.getAddress()).getAddress().getHostAddress(),
-                        "&7Ping: &f" + targetPing,
-                        "&7Health: &f" + Math.round(target.getHealth()),
-                        "&7Food: &f" + target.getFoodLevel(),
-                        "&7Gamemode: &f" + target.getGameMode().name(),
-                        "&7Location: &f" + target.getLocation().getBlockX() + ", " + target.getLocation().getBlockY() + ", " + target.getLocation().getBlockZ(),
-                        "&7World: &f" + target.getWorld().getName(),
+                        "&8&l|&r &7UUID: &f" + target.getUniqueId().toString().replaceAll("-", ""),
+                        "&8&l|&r &7IP: &f" + Objects.requireNonNull(target.getAddress()).getAddress().getHostAddress(),
+                        "&8&l|&r &7Ping: &f" + targetPing,
+                        "&8&l|&r &7Zdraví: &f" + Math.round(target.getHealth()),
+                        "&8&l|&r &7Jidlo: &f" + target.getFoodLevel(),
+                        "&8&l|&r &7Herní režim: &f" + target.getGameMode().name(),
+                        "&8&l|&r &7Lokace: &f" + target.getLocation().getBlockX() + ", " + target.getLocation().getBlockY() + ", " + target.getLocation().getBlockZ(),
+                        "&8&l|&r &7Svět: &f" + target.getWorld().getName(),
                         "",
-                        "&cClick to teleport"
+                        "&cKlikni pro teleportaci"
                      )
                      .skullOwner(target.getName())
                      .build()
@@ -55,51 +53,51 @@ public class PlayerActionsGui extends Gui {
          );
          menu.setButton(
             10,
-            new SGButton(new ItemBuilder(XMaterial.OAK_DOOR.parseItem()).name("&c&lKick").lore("&7Click to kick this player.").build())
+            new SGButton(new ItemBuilder(XMaterial.OAK_DOOR.parseItem()).name("&c&lKick").lore("&7Klikni pro kicknutí hráče").build())
                .withListener(new KickListener(target))
          );
          menu.setButton(
             11,
-            new SGButton(new ItemBuilder(XMaterial.BARRIER.parseItem()).name("&c&lBan").lore("&7Click to ban this player.").build())
+            new SGButton(new ItemBuilder(XMaterial.BARRIER.parseItem()).name("&c&lBan").lore("&7Klikni pro zabanování hráče").build())
                .withListener(new BanListener(target))
          );
          menu.setButton(
             12,
-            new SGButton(new ItemBuilder(XMaterial.GOLDEN_APPLE.parseItem()).name("&a&lHeal").lore("&7Click to heal this player.").build())
+            new SGButton(new ItemBuilder(XMaterial.GOLDEN_APPLE.parseItem()).name("&a&lUzdravit").lore("&7Click to heal this player.").build())
                .withListener(event -> {
                   event.setCancelled(true);
                   target.setHealth(20.0);
                   target.setFoodLevel(20);
                   player.closeInventory();
                   XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-                  ChatUtil.sendMessage(player, "&9PlayerServers> &7You have healed &a" + target.getName() + "&7.");
+                  ChatUtil.sendMessage(player, "&9PlayerServers> &7Uzdravil jsi hráče &a" + target.getName() + "&7.");
                })
          );
          menu.setButton(
             13,
-            new SGButton(new ItemBuilder(XMaterial.COOKED_BEEF.parseItem()).name("&a&lFeed").lore("&7Click to feed this player.").build())
+            new SGButton(new ItemBuilder(XMaterial.COOKED_BEEF.parseItem()).name("&a&lNakrmit").lore("&7Click to feed this player.").build())
                .withListener(event -> {
                   event.setCancelled(true);
                   target.setFoodLevel(20);
                   player.closeInventory();
                   XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-                  ChatUtil.sendMessage(player, "&9PlayerServers> &7You have fed &a" + target.getName() + "&7.");
+                  ChatUtil.sendMessage(player, "&9PlayerServers> &7Nakrmil jsi hráče &a" + target.getName() + "&7.");
                })
          );
          menu.setButton(
-            14, new SGButton(new ItemBuilder(XMaterial.BONE.parseItem()).name("&c&lKill").lore("&7Click to kill this player.").build()).withListener(event -> {
+            14, new SGButton(new ItemBuilder(XMaterial.BONE.parseItem()).name("&c&lZabít").lore("&7Click to kill this player.").build()).withListener(event -> {
                event.setCancelled(true);
                target.setHealth(0.0);
                player.closeInventory();
                XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-               ChatUtil.sendMessage(player, "&9PlayerServers> &7You have killed &a" + target.getName() + "&7.");
+               ChatUtil.sendMessage(player, "&9PlayerServers> &7Zabil jsi hráče &a" + target.getName() + "&7.");
             })
          );
          menu.setButton(
             15,
             new SGButton(
                   new ItemBuilder(XMaterial.ICE.parseItem())
-                     .name("&b&lFreeze")
+                     .name("&b&lZmrazit")
                      .lore("&7Click to freeze this player.", "&7This will prevent them from moving.")
                      .build()
                )
@@ -108,14 +106,14 @@ public class PlayerActionsGui extends Gui {
                   player.closeInventory();
                   MoveHandler.freezePlayer(target);
                   XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-                  ChatUtil.sendMessage(player, "&9PlayerServers> &7You have frozen &a" + target.getName() + "&7.");
+                  ChatUtil.sendMessage(player, "&9PlayerServers> &7Zamrazil jsi hráče &a" + target.getName() + "&7.");
                })
          );
          menu.setButton(
             16,
             new SGButton(
                   new ItemBuilder(XMaterial.LAVA_BUCKET.parseItem())
-                     .name("&b&lUnfreeze")
+                     .name("&b&lOdmrazit")
                      .lore("&7Click to unfreeze this player.", "&7This will allow them to move again.")
                      .build()
                )
@@ -124,7 +122,7 @@ public class PlayerActionsGui extends Gui {
                   player.closeInventory();
                   MoveHandler.unfreezePlayer(target);
                   XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-                  ChatUtil.sendMessage(player, "&9PlayerServers> &7You have unfrozen &a" + target.getName() + "&7.");
+                  ChatUtil.sendMessage(player, "&9PlayerServers> &7Odmrazil jsi hráče &a" + target.getName() + "&7.");
                })
          );
          menu.setButton(
@@ -183,7 +181,7 @@ public class PlayerActionsGui extends Gui {
                player.closeInventory();
                target.setOp(true);
                XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-               ChatUtil.sendMessage(player, "&9PlayerServers> &7You have OP'd &a" + target.getName() + "&7.");
+               ChatUtil.sendMessage(player, "&9PlayerServers> &7Udělil jsi OP hráči &a" + target.getName() + "&7.");
             })
          );
          menu.setButton(
@@ -194,7 +192,7 @@ public class PlayerActionsGui extends Gui {
                   player.closeInventory();
                   target.setOp(false);
                   XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
-                  ChatUtil.sendMessage(player, "&9PlayerServers> &7You have DeOP'd &a" + target.getName() + "&7.");
+                  ChatUtil.sendMessage(player, "&9PlayerServers> &7Odebral jsi OP hráči &a" + target.getName() + "&7.");
                })
          );
          menu.setButton(
@@ -219,6 +217,15 @@ public class PlayerActionsGui extends Gui {
                   ChatUtil.sendMessage(player, "&9PlayerServers> &7You have unwhitelisted &a" + target.getName() + "&7.");
                })
          );
+
+          menu.setButton(
+                  36,
+                  new SGButton(new ItemBuilder(XMaterial.ARROW.parseItem()).name("&c&lZpět").build())
+                          .withListener(event -> {
+                              event.setCancelled(true);
+                              PlayerManagementGui.openGui(player);
+                          })
+          );
          player.openInventory(menu.getInventory());
       } catch (Throwable var5) {
           try {
@@ -229,7 +236,7 @@ public class PlayerActionsGui extends Gui {
       }
    }
 
-   private static int getPlayerPing(Player player) {
+   /*private static int getPlayerPing(Player player) {
       try {
          String packageName = Bukkit.getServer().getClass().getPackage().getName();
          String serverVersion = packageName.substring(packageName.lastIndexOf(".") + 1);
@@ -242,5 +249,5 @@ public class PlayerActionsGui extends Gui {
          var7.printStackTrace();
          return -1;
       }
-   }
+   }*/
 }

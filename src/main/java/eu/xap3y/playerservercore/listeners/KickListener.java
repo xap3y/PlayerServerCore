@@ -32,8 +32,8 @@ public class KickListener implements SGButtonListener {
          Prompt prompt = new ValidatingPrompt() {
             public @NotNull String getPromptText(@NotNull ConversationContext context) {
                XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-               TitleUtils.sendTitle(player, "&9Input kick reason", "&cMust be less than 40 characters", 10, 100000, 10);
-               return ChatUtil.translate("&9PlayerServers> &7Input kick reason.");
+               TitleUtils.sendTitle(player, "&9Napiš důvod kicku", "&cMusí být méně než 40 písmen!", 10, 100000, 10);
+               return ChatUtil.translate("&9PlayerServers> &7Napiš důvod");
             }
 
             protected boolean isInputValid(@NotNull ConversationContext context, String input) {
@@ -45,8 +45,8 @@ public class KickListener implements SGButtonListener {
                KickListener.this.target.kickPlayer(ChatUtil.translate(input));
                TitleUtils.sendTitle(
                   player,
-                  "&aSuccess!",
-                  "&7Successfully kicked &a" + KickListener.this.target.getName() + " &7for: &a" + input.substring(0, 20) + (input.length() > 20 ? "..." : ""),
+                  "&aHotovo!",
+                  "&7Úspěšně vyhozen hráč &a" + KickListener.this.target.getName() + " &7za: &a" + input.substring(0, 20) + (input.length() > 20 ? "..." : ""),
                   10,
                   10,
                   10
@@ -68,7 +68,7 @@ public class KickListener implements SGButtonListener {
          conversation.begin();
          player.closeInventory();
       } else {
-         ChatUtil.sendMessage(player, "&9Permissions> &7You can not perform this action on this player.");
+         ChatUtil.sendMessage(player, "&9Permissions> &7Nemůžeš vyhodit tohoto hráče.");
       }
    }
 }

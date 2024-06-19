@@ -19,7 +19,7 @@ public class CommandManager implements CommandExecutor {
 
    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
       if (!(sender instanceof Player)) {
-         ChatUtil.sendMessage(sender, "&cOnly players can execute this command.");
+         ChatUtil.sendMessage(sender, "&cJenom hráči mohou použít tento příkaz.");
          return true;
       } else {
          Player player = (Player)sender;
@@ -30,7 +30,7 @@ public class CommandManager implements CommandExecutor {
             switch (label) {
                case "psc":
                   if (args.length == 0) {
-                     ChatUtil.sendMessage(player, "&9PlayerServerCore> &7Default command.");
+                     ChatUtil.sendMessage(player, "&9PlayerServerCore> &7Pro otevření menu napiš &e/menu&7.");
                      return true;
                   } else {
                      String var8 = args[0];

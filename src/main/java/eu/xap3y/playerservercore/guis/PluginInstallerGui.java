@@ -28,7 +28,7 @@ import org.bukkit.plugin.Plugin;
 public class PluginInstallerGui extends Gui {
    public static void openGui(Player player) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Plugins Manager", 5);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa pluginů", 5);
       menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cGo back").build()).withListener(event -> MainGui.openGui(player)));
       menu.stickSlot(8);
       menu.setAutomaticPaginationEnabled(true);
@@ -80,7 +80,7 @@ public class PluginInstallerGui extends Gui {
                return;
             }
 
-            filex = (File)var21.next();
+            filex = var21.next();
             if (filex.isFile()) {
                String fileName = filex.getName();
                if (fileName.endsWith(".jar")) {

@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 public class PlayerManagementGui extends Gui {
    public static void openGui(Player player) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Manage players", 5);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa hráčů", 5);
       menu.setAutomaticPaginationEnabled(true);
-      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cGo back").build()).withListener(event -> MainGui.openGui(player)));
+      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cZpět").build()).withListener(event -> MainGui.openGui(player)));
       menu.stickSlot(8);
       Bukkit.getOnlinePlayers()
          .forEach(
@@ -23,7 +23,7 @@ public class PlayerManagementGui extends Gui {
                         new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
                            .skullOwner(onlinePlayer.getName())
                            .name("&a" + onlinePlayer.getName())
-                           .lore("&7Click to manage this player.")
+                           .lore("&7Klikni pro správu tohoto hráče.")
                            .build()
                      )
                      .withListener(event -> PlayerActionsGui.openGui(player, onlinePlayer))

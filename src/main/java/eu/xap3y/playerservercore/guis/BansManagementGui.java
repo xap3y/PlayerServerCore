@@ -18,9 +18,9 @@ import org.bukkit.entity.Player;
 public class BansManagementGui extends Gui {
    public static void openGui(Player player) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Bans Management", 5);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa banů", 5);
       menu.setAutomaticPaginationEnabled(true);
-      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cGo back").build()).withListener(event -> MainGui.openGui(player)));
+      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cZpět").build()).withListener(event -> MainGui.openGui(player)));
       menu.stickSlot(8);
 
       Set<BanEntry> nameBans = PlayerServerCore.getInstance().getServer().getBanList(Type.NAME).getBanEntries();
@@ -34,11 +34,11 @@ public class BansManagementGui extends Gui {
                   new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                      .name("&a&l" + banEntry.getTarget())
                      .lore(
-                        "&7Reason: &f" + banEntry.getReason(),
-                        "&7Expires: &f" + (banEntry.getExpiration() == null ? "Never" : banEntry.getExpiration()),
-                        "&7Source: &f" + banEntry.getSource(),
+                        "&8&l|&r &7Důvod: &f" + banEntry.getReason(),
+                        "&8&l|&r &7Expiruje: &f" + (banEntry.getExpiration() == null ? "Nikdy" : banEntry.getExpiration()),
+                        "&8&l|&r &7Zabanový od: &f" + banEntry.getSource(),
                         "",
-                        "&cClick to unban"
+                        "&cKlikni pro unban"
                      )
                      .skullOwner(banEntry.getTarget())
                      .build()

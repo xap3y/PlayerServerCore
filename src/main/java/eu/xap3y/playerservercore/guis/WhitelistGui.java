@@ -13,13 +13,13 @@ import org.bukkit.entity.Player;
 public class WhitelistGui extends Gui {
    public static void openGui(Player player) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Plugins Manager", 5);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa whitelistu", 5);
       menu.setAutomaticPaginationEnabled(true);
       boolean isEnabled = Bukkit.hasWhitelist();
       menu.setButton(
          6,
          new SGButton(
-               new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem()).name("&a&lAdd player to whitelist").lore("&7Click to add a player to the whitelist.").build()
+               new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem()).name("&a&lPřidat hráče do whitelistu").lore("&7Klikni pro přidání").build()
             )
             .withListener(new WhitelistListener())
       );
@@ -27,7 +27,7 @@ public class WhitelistGui extends Gui {
          7,
          new SGButton(
                new ItemBuilder(isEnabled ? XMaterial.IRON_DOOR.parseMaterial() : XMaterial.OAK_DOOR.parseMaterial())
-                  .name(isEnabled ? "&a&lDisable Whitelist" : "&c&lEnable Whitelist")
+                  .name(isEnabled ? "&a&lVypnout Whitelist" : "&c&lZapnout Whitelist")
                   .build()
             )
             .withListener(event -> {
@@ -35,7 +35,7 @@ public class WhitelistGui extends Gui {
                openGui(player);
             })
       );
-      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cGo back").build()).withListener(event -> MainGui.openGui(player)));
+      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cZpět").build()).withListener(event -> MainGui.openGui(player)));
       menu.stickSlot(8);
       Bukkit.getWhitelistedPlayers()
          .forEach(
@@ -44,7 +44,7 @@ public class WhitelistGui extends Gui {
                         new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
                            .skullOwner(whitelistedPlayer.getName())
                            .name("&a" + whitelistedPlayer.getName())
-                           .lore("&7Click to unwhitelist this player.")
+                           .lore("&7Klikni pro odebrání")
                            .build()
                      )
                      .withListener(event -> {

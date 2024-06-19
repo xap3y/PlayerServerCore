@@ -24,8 +24,8 @@ public class WhitelistListener implements SGButtonListener {
       Prompt prompt = new ValidatingPrompt() {
          public @NotNull String getPromptText(@NotNull ConversationContext context) {
             XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-            TitleUtils.sendTitle(player, "&9Input the name of the player", "&cMust be less than 16 characters", 10, 100000, 10);
-            return ChatUtil.translate("&9PlayerServers> &7Input the name of the player.");
+            TitleUtils.sendTitle(player, "&9Napiš jméno hráče", "&cMusí být méně než 16 písmen!", 10, 100000, 10);
+            return ChatUtil.translate("&9PlayerServers> &7Napiš jméno hráče.");
          }
 
          protected boolean isInputValid(@NotNull ConversationContext context, String input) {
@@ -36,7 +36,7 @@ public class WhitelistListener implements SGButtonListener {
             player.resetTitle();
             OfflinePlayer target = Bukkit.getOfflinePlayer(input);
             target.setWhitelisted(true);
-            TitleUtils.sendTitle(player, "&aSuccess!", "&7You have whitelisted &a" + target.getName(), 10, 10, 10);
+            TitleUtils.sendTitle(player, "&aPřídáno!", "&7Přidal jsi hráče &a" + target.getName(), 10, 10, 10);
             XSound.ENTITY_EXPERIENCE_ORB_PICKUP.play(player);
 
             try {

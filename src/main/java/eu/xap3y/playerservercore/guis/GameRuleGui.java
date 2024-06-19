@@ -16,9 +16,9 @@ import org.bukkit.entity.Player;
 public class GameRuleGui extends Gui {
    public static void openGui(Player player) {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
-      SGMenu menu = PlayerServerCore.getSpiGUI().create("Main Menu", 4);
+      SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa herních možností", 4);
       menu.setAutomaticPaginationEnabled(false);
-      World defaultWorld = (World)PlayerServerCore.getInstance().getServer().getWorlds().get(0);
+      World defaultWorld = PlayerServerCore.getInstance().getServer().getWorlds().get(0);
       List<String> gameRules = Arrays.asList(defaultWorld.getGameRules());
 
       for (String gameRule : gameRules) {
@@ -27,7 +27,7 @@ public class GameRuleGui extends Gui {
             new SGButton(
                   new ItemBuilder(XMaterial.PAPER.parseItem())
                      .name("&a&l" + gameRule)
-                     .lore("&7Value: &f" + player.getWorld().getGameRuleValue(gameRule))
+                     .lore("&7Hodnota: &f" + player.getWorld().getGameRuleValue(gameRule))
                      .build()
                )
                .withListener(new GameRuleListener(gameRule))
@@ -36,7 +36,7 @@ public class GameRuleGui extends Gui {
 
       menu.setButton(
          31,
-         new SGButton(new ItemBuilder(XMaterial.ARROW.parseItem()).name("&c&lBack").lore("&7Click to go back to the main menu.").build())
+         new SGButton(new ItemBuilder(XMaterial.ARROW.parseItem()).name("&c&lZpět").build())
             .withListener(event -> {
                MainGui.openGui(player);
                XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
