@@ -3,7 +3,7 @@ run-name: Build PlayerServerCore plugin
 on: [push]
 jobs:
     Build-latest-jar:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04:docker://ubuntu-22.04
         steps:
             - name: Build | Prepare packages
               run: |
