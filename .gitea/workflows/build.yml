@@ -9,7 +9,8 @@ jobs:
               run: |
                   apt-get update
                   apt-get install software-properties-common -y 
-                  apt-get install -y openjdk-21-jdk maven
+                  apt-get install -y maven
+                  apt install -y openjdk-21-jdk
             - name: Prepare | Setup git
               run: |
                   git config --global user.name "Radim Lipovčan"
