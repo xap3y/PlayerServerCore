@@ -10,7 +10,8 @@ jobs:
                   apt-get update
                   apt-get install software-properties-common -y 
                   apt-get install -y maven
-                  wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk21.deb && apt install ./jdk21.deb -y
+                  apt install openjdk-21-jdk
+                  #wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk21.deb && apt install ./jdk21.deb -y
             - name: Prepare | Setup git
               run: |
                   git config --global user.name "Radim Lipovčan"
