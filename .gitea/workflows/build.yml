@@ -3,14 +3,14 @@ run-name: Build PlayerServerCore plugin
 on: [push]
 jobs:
     Build-latest-jar:
-        runs-on: ubuntu-22.04:docker://ubuntu-22.04
+        runs-on: ubuntu-latest
         steps:
             - name: Build | Prepare packages
               run: |
                   apt-get update
                   apt-get install software-properties-common -y 
                   apt-get install -y maven
-                  apt install openjdk-21-jdk
+                  apt-get install -y openjdk-21-jdk
                   #wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk21.deb && apt install ./jdk21.deb -y
             - name: Prepare | Setup git
               run: |
