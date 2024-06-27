@@ -4,6 +4,7 @@ import com.samjakob.spigui.SpiGUI;
 import eu.xap3y.playerservercore.commands.CommandManager;
 import eu.xap3y.playerservercore.events.*;
 import eu.xap3y.playerservercore.listeners.MessageChannelListener;
+import eu.xap3y.playerservercore.listeners.PlayerLoginListener;
 import eu.xap3y.playerservercore.tasks.ShutdownTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
@@ -29,11 +30,11 @@ public final class PlayerServerCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ChatEvent(configuration), this);
         Bukkit.getPluginManager().registerEvents(new MoveHandler(), this);
         Bukkit.getPluginManager().registerEvents(shutdownTimer, this);
+        Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), this);
         this.getCommand("psc").setExecutor(new CommandManager(this));
         this.getCommand("menu").setExecutor(new CommandManager(this));
         this.getCommand("config").setExecutor(new CommandManager(this));
         shutdownTimer.runTaskTimer(this, 0L, 20L);
-
     }
 
     @Override
