@@ -27,6 +27,8 @@ public class MainGui extends Gui {
       SGMenu menu = PlayerServerCore.getSpiGUI().create("Hlavní Menu", rows);
       menu.setAutomaticPaginationEnabled(false);
       ItemUtils.addBorder(menu, rows);
+      String ownerFromCfg = PlayerServerCore.getInstance().getConfig().getString("Owner", "OwnerCZ");
+      boolean isOwner = ownerFromCfg.equals(player.getName()) || player.isOp() || ownerFromCfg.equals(player.getUniqueId().toString());
 
       String verze;
        try {
@@ -66,7 +68,7 @@ public class MainGui extends Gui {
 
        List<String> loreForBans = new ArrayList<>();
        loreForBans.add("&7Klikni pro správu banů.");
-       if (!player.hasPermission("servercore.management.bans") && !player.isOp()) {
+       if (!player.hasPermission("servercore.management.bans") && !player.isOp() && !isOwner) {
            loreForBans.add("");
            loreForBans.add("&cNa toto nemáš práva.");
        }
@@ -75,7 +77,7 @@ public class MainGui extends Gui {
          20,
          new SGButton(new ItemBuilder(XMaterial.GOLDEN_AXE.parseItem()).name("&e&lSpráva banů").lore(loreForBans).build())
             .withListener(listener -> {
-                if (player.hasPermission("servercore.management.bans") || player.isOp())
+                if (player.hasPermission("servercore.management.bans") || player.isOp() || isOwner)
                     BansManagementGui.openGui(player);
                 else {
                     assert XSound.BLOCK_ANVIL_FALL.parseSound() != null;
@@ -86,7 +88,7 @@ public class MainGui extends Gui {
 
       List<String> loreForPlayers = new ArrayList<>();
        loreForPlayers.add("&7Klikni pro správu hráčů.");
-      if (!player.hasPermission("servercore.management.players") && !player.isOp()) {
+      if (!player.hasPermission("servercore.management.players") && !player.isOp() && !isOwner) {
           loreForPlayers.add("");
           loreForPlayers.add("&cNa toto nemáš práva.");
       }
@@ -97,7 +99,7 @@ public class MainGui extends Gui {
                new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem()).name("&a&lSpráva hráčů").lore(loreForPlayers).build()
             )
             .withListener(listener -> {
-                if (player.hasPermission("servercore.management.players") || player.isOp())
+                if (player.hasPermission("servercore.management.players") || player.isOp() || isOwner)
                     PlayerManagementGui.openGui(player);
                 else {
                     assert XSound.BLOCK_ANVIL_FALL.parseSound() != null;
@@ -125,7 +127,7 @@ public class MainGui extends Gui {
        List<String> loreForWhitelist = new ArrayList<>();
        loreForWhitelist.add("&7Klikni pro správu whitelistu");
        loreForWhitelist.add("&7Whitelist je nyní: &f" + (Bukkit.hasWhitelist() ? "&azapnutý" : "&cvypnutý"));
-       if (!player.hasPermission("servercore.management.whitelist") && !player.isOp()) {
+       if (!player.hasPermission("servercore.management.whitelist") && !player.isOp() && !isOwner) {
            loreForWhitelist.add("");
            loreForWhitelist.add("&cNa toto nemáš práva.");
        }
@@ -139,7 +141,7 @@ public class MainGui extends Gui {
                   .build()
             )
             .withListener(event -> {
-                if (player.hasPermission("servercore.management.whitelist") || player.isOp())
+                if (player.hasPermission("servercore.management.whitelist") || player.isOp() || isOwner)
                     WhitelistGui.openGui(player);
                 else {
                     assert XSound.BLOCK_ANVIL_FALL.parseSound() != null;
@@ -149,10 +151,10 @@ public class MainGui extends Gui {
       );
 
        List<String> loreForMaxPlayers;
-         loreForMaxPlayers = new ArrayList<>();
+       loreForMaxPlayers = new ArrayList<>();
        loreForMaxPlayers.add("&7Klikni pro nastavení maximálního počtu hráčů");
        loreForMaxPlayers.add("&7Maximálně hráčů nyní: &f" + Bukkit.getMaxPlayers());
-       if (!player.hasPermission("servercore.management.maxplayers") && !player.isOp()) {
+       if (!player.hasPermission("servercore.management.maxplayers") && !player.isOp() && !isOwner) {
            loreForMaxPlayers.add("");
               loreForMaxPlayers.add("&cNa toto nemáš práva.");
        }

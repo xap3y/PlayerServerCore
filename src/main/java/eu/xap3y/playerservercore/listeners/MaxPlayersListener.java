@@ -20,8 +20,10 @@ public class MaxPlayersListener implements SGButtonListener {
    @Override
    public void onClick(InventoryClickEvent event) {
       final Player player = (Player)event.getWhoClicked();
+      String ownerFromCfg = PlayerServerCore.getInstance().getConfig().getString("Owner", "OwnerCZ");
+      boolean isOwner = ownerFromCfg.equals(player.getName()) || ownerFromCfg.equals(player.getUniqueId().toString());
 
-      if (!player.hasPermission("servercore.management.maxplayers") && !player.isOp()) {
+      if (!player.hasPermission("servercore.management.maxplayers") && !player.isOp() && !isOwner) {
          assert XSound.BLOCK_ANVIL_FALL.parseSound() != null;
          player.playSound(player.getLocation(), XSound.BLOCK_ANVIL_FALL.parseSound(), 1f, 1f);
          return;
