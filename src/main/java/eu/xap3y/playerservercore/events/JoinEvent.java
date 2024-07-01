@@ -19,15 +19,12 @@ public class JoinEvent implements Listener {
    @EventHandler
    public void opOnJoin(PlayerJoinEvent event) {
       Player player = event.getPlayer();
-      String owner = this.configuration.getString("Owner");
+      String owner = this.configuration.getString("Owner", "OwnerCZ");
       if (player.getName().equals(owner) || player.getUniqueId().toString().equals(owner)) {
-         if (!player.isOp()) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7Welcome to your server, " + player.getDisplayName() + "!"));
-            player.sendMessage(
-               ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7You can manage your server settings by using the &9/menu &7command.")
-            );
-            player.setOp(true);
-         }
+         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7Vítejte na svém serveru, " + player.getDisplayName() + "!"));
+         player.sendMessage(
+                 ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7Pomocí příkazu &e/menu &7můžeš upravovat nastavení serveru.")
+         );
       }
    }
 
@@ -42,7 +39,7 @@ public class JoinEvent implements Listener {
          if (!player.isOp()) {
             if (!player.hasPermission("playerserver.bypass.maxplayers")) {
                if (online >= Bukkit.getMaxPlayers() || online >= this.configuration.getInt("MaxPlayers")) {
-                  player.kickPlayer(ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7The server is full!"));
+                  player.kickPlayer(ChatColor.translateAlternateColorCodes('&', "&9PlayerServers> &7Server je plný!"));
                }
             }
          }

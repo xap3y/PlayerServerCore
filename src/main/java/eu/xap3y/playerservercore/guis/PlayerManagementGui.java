@@ -14,20 +14,24 @@ public class PlayerManagementGui extends Gui {
       XSound.BLOCK_NOTE_BLOCK_BASS.play(player);
       SGMenu menu = PlayerServerCore.getSpiGUI().create("Správa hráčů", 5);
       menu.setAutomaticPaginationEnabled(true);
-      menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cZpět").build()).withListener(event -> MainGui.openGui(player)));
+       assert XMaterial.ARROW.parseMaterial() != null;
+       menu.setButton(8, new SGButton(new ItemBuilder(XMaterial.ARROW.parseMaterial()).name("&cZpět").build()).withListener(event -> MainGui.openGui(player)));
       menu.stickSlot(8);
       Bukkit.getOnlinePlayers()
          .forEach(
-            onlinePlayer -> menu.addButton(
-                  new SGButton(
-                        new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
-                           .skullOwner(onlinePlayer.getName())
-                           .name("&a" + onlinePlayer.getName())
-                           .lore("&7Klikni pro správu tohoto hráče.")
-                           .build()
-                     )
-                     .withListener(event -> PlayerActionsGui.openGui(player, onlinePlayer))
-               )
+            onlinePlayer -> {
+                assert XMaterial.PLAYER_HEAD.parseMaterial() != null;
+                menu.addButton(
+                      new SGButton(
+                            new ItemBuilder(XMaterial.PLAYER_HEAD.parseMaterial())
+                               .skullOwner(onlinePlayer.getName())
+                               .name("&a" + onlinePlayer.getName())
+                               .lore("&7Klikni pro správu tohoto hráče.")
+                               .build()
+                         )
+                         .withListener(event -> PlayerActionsGui.openGui(player, onlinePlayer))
+                   );
+            }
          );
       player.openInventory(menu.getInventory());
    }

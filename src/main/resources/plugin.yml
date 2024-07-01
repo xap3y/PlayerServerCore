@@ -15,6 +15,3 @@ commands:
     menu:
         usage: /menu
         description: PlayerServers Core menu command
-    config:
-        usage: /config
-        description: PlayerServers Core config command

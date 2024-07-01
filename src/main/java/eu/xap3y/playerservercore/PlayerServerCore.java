@@ -33,7 +33,7 @@ public final class PlayerServerCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(), this);
         this.getCommand("psc").setExecutor(new CommandManager(this));
         this.getCommand("menu").setExecutor(new CommandManager(this));
-        this.getCommand("config").setExecutor(new CommandManager(this));
+        //this.getCommand("config").setExecutor(new CommandManager(this));
         shutdownTimer.runTaskTimer(this, 0L, 20L);
     }
 

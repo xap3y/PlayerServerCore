@@ -20,43 +20,37 @@ public class CommandManager implements CommandExecutor {
    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
       if (!(sender instanceof Player)) {
          ChatUtil.sendMessage(sender, "&cJenom hráči mohou použít tento příkaz.");
-         return true;
       } else {
          Player player = (Player)sender;
-         if (!player.hasPermission("servercore.manage") && !player.isOp()) {
-            ChatUtil.sendMessage(player, "&rUnknown command. Type \"/help\" for help.");
-            return true;
+         String cfgName = this.instance.getConfig().getString("Owner", "OwnerCZ");
+         String name = player.getName();
+         if (!player.hasPermission("servercore.manage") && !player.isOp() && !cfgName.equals(name)) {
+            ChatUtil.sendMessage(player, "&9PlayerServerCore> &cNa toto nemáš oprávnění.");
          } else {
-            switch (label) {
-               case "psc":
-                  if (args.length == 0) {
-                     ChatUtil.sendMessage(player, "&9PlayerServerCore> &7Pro otevření menu napiš &e/menu&7.");
-                     return true;
-                  } else {
-                     String var8 = args[0];
-                     switch (var8) {
-                        case "menu":
-                           MainGui.openGui(player);
-                           return true;
-                        case "config":
-                           ConfigGui.openGui(player, this.instance.getServer().getWorldContainer());
-                           return true;
-                        case "plugins":
-                           return true;
-                        default:
-                           return true;
+             switch (label) {
+                 case "psc" -> {
+                     if (args.length == 0) {
+                         ChatUtil.sendMessage(player, "&9PlayerServerCore> &7Pro otevření menu napiš &e/menu&7.");
+                     } else {
+                         String var8 = args[0];
+                         if (var8.equals("menu")) {
+                             MainGui.openGui(player);
+/*                             case "config" -> {
+                                 ConfigGui.openGui(player, this.instance.getServer().getWorldContainer());
+                             }*/
+                         }
                      }
-                  }
-               case "menu":
-                  MainGui.openGui(player);
-                  return true;
-               case "config":
-                  ConfigGui.openGui(player, this.instance.getServer().getWorldContainer());
-                  return true;
-               default:
-                  return true;
-            }
+                 }
+                 case "menu" -> {
+                     MainGui.openGui(player);
+                 }
+                 /*case "config" -> {
+                     ConfigGui.openGui(player, this.instance.getServer().getWorldContainer());
+                 }*/
+                 default -> {}
+             }
          }
       }
+       return true;
    }
 }
